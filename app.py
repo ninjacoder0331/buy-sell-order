@@ -47,7 +47,9 @@ def sellorder():
     except Exception as e:
         return jsonify({"status" : "error"})
 
-
 # For local development
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(debug=True)
+
+# For Vercel deployment
+application = app 
