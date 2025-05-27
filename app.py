@@ -22,11 +22,20 @@ def buyorder():
             "qty": request.json.get("qty")
         }
         response = requests.post(external_url, json=data)
-        if response.status_code == 200:
+
+        ibkr_external_url = "https://evolved-leech-firstly.ngrok-free.app/buy"
+        ibkr_data = {
+            "symbol" : request.json.get("symbol"),
+            "quantity" : request.json.get("qty")
+        }
+        ibkr_response = request.post(ibkr_external_url , json=ibkr_data)
+
+        if response.status_code == 200 and ibkr_response.status_code == 200:
             return jsonify({"status" : response.json()})
         else:
             return jsonify({"status" : "error"})
-            
+
+
     except Exception as e:
         return jsonify({"status" : "error"})
 
@@ -39,7 +48,14 @@ def sellorder():
             "qty" : request.json.get("qty")
         }
         response = requests.post(external_url, json=data)
-        if response.status_code == 200:
+
+        ibkr_external_url = "https://evolved-leech-firstly.ngrok-free.app/sell"
+        ibkr_data = {
+            "symbol" : request.json.get("symbol"),
+            "quantity" : request.json.get("qty")
+        }
+        ibkr_response = request.post(ibkr_external_url, json=ibkr_data)
+        if response.status_code == 200 and ibkr_response.status_code == 200:
             return jsonify({"status" : response.json()})
         else:
             return jsonify({"status" : "error"})
